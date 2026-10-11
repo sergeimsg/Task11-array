@@ -2,15 +2,19 @@ package com.task.reader;
 
 import com.task.exception.ArrayUserException;
 import com.task.reader.impl.DataReaderImpl;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DataReaderImplTest {
-
+    public static final Logger logger = LogManager.getLogger();
     private DataReaderImpl reader;
 
     @BeforeEach
@@ -39,5 +43,8 @@ class DataReaderImplTest {
     @Test
     void readEmptyPathThrowsException() {
         assertThrows(ArrayUserException.class, () -> reader.readLines(""));
+        logger.info("{} passed", DataReaderImplTest.this);
     }
+
+
 }

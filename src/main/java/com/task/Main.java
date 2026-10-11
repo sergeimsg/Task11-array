@@ -1,8 +1,6 @@
 package com.task;
 
 
-import com.task.creator.ArrayCreator;
-import com.task.creator.impl.ArrayCreatorImpl;
 import com.task.entity.IntegerArray;
 import com.task.exception.ArrayUserException;
 import com.task.factory.ArrayFactory;
@@ -18,6 +16,7 @@ import com.task.validator.impl.ArrayValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,13 +38,26 @@ public class Main {
         ArrayValidator validator = new ArrayValidatorImpl();
         ArrayParser parser = new ArrayParserImpl();
         ArrayFactory factory = new IntegerArrayFactory();
-        ArrayCreator creator = new ArrayCreatorImpl(reader, validator, parser, factory);
         ArrayService service = new ArrayServiceImpl();
 
         String filePath = "src/main/resources/data/array_data.txt";
         logger.info("Reading arrays from: {}", filePath);
 
-        List<IntegerArray> arrays = creator.createArraysFromFile(filePath);
+        List<String> lines = reader.readLines(filePath);
+
+        List<IntegerArray> arrays = new ArrayList<>();
+        for (String line : lines) {
+            if (validator.isLineValid(line)) {
+                int[] data = parser.parse(line);
+                IntegerArray array = factory.createArray(data);
+                arrays.add(array);
+                logger.info("Created array from valid line: '{}'", line);
+            } else {
+                logger.warn("Skipped invalid line: '{}'", line);
+            }
+        }
+        logger.info("Total arrays created: {}", arrays.size());
+
 
         for (int i = 0; i < arrays.size(); i++) {
             IntegerArray array = arrays.get(i);
@@ -57,7 +69,7 @@ public class Main {
                 Optional<Integer> sum = service.calculateSum(array);
                 Optional<Double> avg = service.calculateAverage(array);
 
-                logger.info("  Min={}, Max={}, Sum={}, Average={}",
+                logger.info("Array={} Min={}, Max={}, Sum={}, Average={}", array.toString(),
                         min.orElse(null), max.orElse(null),
                         sum.orElse(null), avg.orElse(null));
 
@@ -69,7 +81,5 @@ public class Main {
                 logger.info("  Empty array — no operations to perform");
             }
         }
-
-
     }
 }

@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Implementation of DataReader using Java 7+ NIO.2 API.
+ * Implementation of DataReader.
  */
 public class DataReaderImpl implements DataReader {
 
@@ -20,7 +20,7 @@ public class DataReaderImpl implements DataReader {
 
     @Override
     public List<String> readLines(String filePath) throws ArrayUserException {
-        if (filePath == null || filePath.trim().isEmpty()) {
+        if (filePath == null || filePath.strip().isEmpty()) {
             throw new ArrayUserException("File path cannot be null or empty");
         }
         try {

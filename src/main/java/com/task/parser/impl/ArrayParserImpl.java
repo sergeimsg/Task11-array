@@ -5,6 +5,8 @@ import com.task.parser.ArrayParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
+
 /**
  * Parses a validated string line into a primitive int array.
  * Recognized delimiters: comma, semicolon, space, hyphen, en-dash.
@@ -32,6 +34,7 @@ public class ArrayParserImpl implements ArrayParser {
             return new int[0];
         }
         String[] tokens = normalized.split("\\s+");
+        logger.debug("normalized {}", Arrays.toString(tokens));
         int[] result = new int[tokens.length];
         for (int i = 0; i < tokens.length; i++) {
             try {
