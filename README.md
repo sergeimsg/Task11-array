@@ -14,7 +14,6 @@ task-array/
 │   ├── reader/          — DataReader, DataReaderImpl
 │   ├── parser/          — ArrayParser, ArrayParserImpl
 │   ├── validator/       — ArrayValidator, ArrayValidatorImpl
-│   ├── creator/         — ArrayCreator, ArrayCreatorImpl
 │   └── Runner.java      — Application entry point
 ├── src/main/resources/
 │   ├── log4j2.xml       — Log4J2 configuration (console + file)
@@ -27,7 +26,7 @@ task-array/
     ├── reader/          — DataReaderImplTest
     ├── factory/         — IntegerArrayFactoryTest
     ├── builder/         — IntegerArrayBuilderTest
-    └── creator/         — ArrayCreatorImplTest
+    
 ```
 
 ## Patterns
