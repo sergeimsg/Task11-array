@@ -33,7 +33,7 @@ task-array/
 - **Factory Method**: `ArrayFactory` interface + `IntegerArrayFactory` implementation.
 
 
-## Build & Run
+## Run
 
 ```bash
 mvn clean package
